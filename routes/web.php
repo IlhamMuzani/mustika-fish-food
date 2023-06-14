@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IkanController;
-use App\Http\Controllers\PakanController;
-use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Kasir\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,36 +19,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('/welcome');
-});
+
+Route::get('/', [HomeController::class, 'index'])->middleware('isLogin');
 Route::get('checkuser', [HomeController::class, 'checkUser']);
-Route::get('login', [UserController::class, 'index']);
-Route::post('login-new', [UserController::class, 'login_action'])->name('login.action');
+Route::get('login', [UserController::class, 'index'])->middleware('isLogin');
+Route::post('login-new', [UserController::class, 'login_action'])->name('login.action')->middleware('isLogin');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 
-
-route::get('/admin', [DashboardController::class, 'admin'])->name('admin-view');
-route::get('/owner', [DashboardController::class, 'owner'])->name('owner-view');
-// Route::resource('ikan', IkanController::class);
-Route::resource('pakan', PakanController::class);
-Route::resource('transaksi', TransaksiController::class);
-
-// Route::group(['middleware' => ['auth', 'level:admin']], function () {
-//     Route::resource('dashboard', DashboardController::class);
-// });
-
-// Route::group(['middleware' => ['auth', 'level:owner']], function () {
-//     Route::resource('dashboard', DashboardController::class);
-// });
-
-// Route::group(['middleware' => ['auth', 'level:pembeli']], function () {
-// });
-
-Route::middleware('admin')->prefix('admin')->group(function() {
+Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    Route::resource('ikan', IkanController::class);
+    Route::resource('product', \App\Http\Controllers\Admin\ProductController::class);
+    Route::resource('suplayer', \App\Http\Controllers\Admin\SuplayerController::class);
 });
 
 Route::middleware('owner')->prefix('owner')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Kasir\DashboardController::class, 'index']);
+    Route::resource('laporan', \App\Http\Controllers\Owner\LaporanController::class);
+});
+
+Route::middleware('kasir')->prefix('kasir')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Kasir\DashboardController::class, 'index']);
+    Route::resource('transaksi', \App\Http\Controllers\Kasir\TransaksiController::class);
 });

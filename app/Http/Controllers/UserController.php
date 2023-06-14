@@ -41,4 +41,10 @@ class UserController extends Controller
             return back()->with('error', array('Email dan password tidak sesuai'));
         }
     }
+    
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login')->with('success', 'Berhasil logout');
+    }
 }

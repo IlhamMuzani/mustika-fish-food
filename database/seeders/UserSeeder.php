@@ -26,6 +26,12 @@ class UserSeeder extends Seeder
                 'email' => 'windi@gmail.com',
                 'level' => 'owner',
                 'password' => bcrypt('windi'),
+            ],
+            [
+                'name' => 'kasir',
+                'email' => 'kasir@gmail.com',
+                'level' => 'kasir',
+                'password' => bcrypt('kasir'),
             ]
         ];
         User::insert($users);

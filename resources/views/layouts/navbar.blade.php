@@ -5,30 +5,35 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
+                        </li>
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="#" class="nav-link font-italic">Inventory - Toko Mustika Fish Food</a>
+                        </li>
+                        {{-- 
+                @if (Auth::user()->level == 'admin')
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ url('admin/suplayer') }}" class="nav-link">Suplayer</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('dashboard') }}" class="nav-link">Home</a>
+                    <a href="{{ url('admin/product') }}" class="nav-link">Produk</a>
                 </li>
-                {{-- @if (Auth::user()->level == 'admin') --}}
+                @else
+                @endif
+                @if (Auth::user()->level == 'kasir')
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('ikan') }}" class="nav-link">Ikan</a>
+                    <a href="{{ url('kasir/transaksi') }}" class="nav-link">Transaksi</a>
                 </li>
+                @else
+                @endif
+                @if (Auth::user()->level == 'owner')
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('pakan') }}" class="nav-link">Pakan</a>
+                    <a href="{{ url('owner/laporan') }}" class="nav-link">Laporan</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('transaksi') }}" class="nav-link">Transaksi</a>
-                </li>
-                {{-- @else --}}
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('laporan') }}" class="nav-link">Laporan</a>
-                </li>
-                {{-- @endif --}}
+                @else
+                @endif --}}
             </ul>
 
             <!-- Right navbar links -->
-            
-            {{-- sebelah kanan jika ingin menambahkan  --}}
 
         </nav>
         <!-- /.navbar -->
