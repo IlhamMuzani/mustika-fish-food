@@ -4,132 +4,252 @@
 
 @section('content')
 
+
+    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Transaksi</h1>
+                    <h1 class="m-0">Pesanan</h1>
                 </div><!-- /.col -->
-            </div>
-        </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('admin/ukuran') }}">Pesanan</a>
+                        </li>
+                        <li class="breadcrumb-item active">Buat</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
     <section class="content">
         <div class="container-fluid">
-            @if (session('status'))
-                <div class="alert alert-danger border-2" role="alert">
-                    <div class="clearfix">
-                        <div class="d-flex align-items-center float-start">
-                            <div class="bg-danger me-3 icon-item">
-                                <span class="fas fa-times-circle text-white fs-3"></span>
-                            </div>
-                            <h5 class="mb-0 text-danger">Error!</h5>
-                        </div>
-                        <button class="btn-close float-end" type="button" data-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <div class="mt-3">
-                        @foreach (session('status') as $error)
-                            <p>
-                                <span class="dot bg-danger"></span> {{ $error }}
-                            </p>
+            @if (session('error_pelanggans') || session('error_pesanans'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5>
+                        <i class="icon fas fa-ban"></i> Error!
+                    </h5>
+                    @if (session('error_pelanggans'))
+                        @foreach (session('error_pelanggans') as $error)
+                            - {{ $error }} <br>
                         @endforeach
-                    </div>
+                    @endif
+                    @if (session('error_pesanans'))
+                        @foreach (session('error_pesanans') as $error)
+                            - {{ $error }} <br>
+                        @endforeach
+                    @endif
                 </div>
             @endif
-            <div class="card">
-                <div class="card-header">
-                    <h5>Tambah Transaksi</h5>
-                </div>
-                <form action="{{ url('kasir/transaksi') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
-                    @csrf
+            <form action="{{ url('admin/pesanan') }}" method="post" autocomplete="off">
+                @csrf
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detail Pelanggan</h3>
+                    </div>
+                    <!-- /.card-header -->
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label" for="nama_pembeli">Nama Pembeli *</label>
-                            <input class="form-control @error('nama_pembeli') is-invalid @enderror" id="nama_pembeli"
-                                name="nama_pembeli" type="text" placeholder="masukan nama pembeli"
-                                value="{{ old('nama_pembeli') }}" />
-                            @error('nama_pembeli')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="kategori_produk">Kategori *</label>
-                            <select class="form-select" id="kategori_produk" name="kategori_produk">
-                                <option value="">- Pilih -</option>
-                                <option value="ikan" {{ old('kategori_produk') == 'ikan' ? 'selected' : null }}>ikan</option>
-                                <option value="pakan" {{ old('kategori_produk') == 'pakan' ? 'selected' : null }}>pakan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nama Produk *</label>
-                            <select class="form-select @error('product_id') is-invalid @enderror" id="product_id"
-                                name="product_id" aria-label="Default select example">
-                                <option value="">- Pilih -</option>
-                                @foreach ($products as $k)
-                                    <option value="{{ $k->id }}"
-                                        {{ old('product_id') == $k->id ? 'selected' : null }}>
-                                        {{ $k->nama }}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-group">
+                            <label for="nama_pelanggan">Nama Pelanggan</label>
+                            <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan"
+                                placeholder="Masukan nama pelanggan" value="{{ old('nama_pelanggan') }}">
                         </div>
                         <div class="form-group">
-                            <label>Date and time:</label>
-                            <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                <input type="date" id="tanggal" name="tanggal" placeholder="d M Y sampai d M Y"
-                                    data-options='{"mode":"range","dateFormat":"d M Y","disableMobile":true}'
-                                    value="{{ old('tanggal') }}" class="form-control datetimepicker-input"
-                                    data-target="#reservationdatetime">
+                            <label for="telp_pelanggan">Nomor Telepon</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">+62</span>
+                                </div>
+                                <input type="text" class="form-control" id="telp_pelanggan" name="telp_pelanggan"
+                                    placeholder="Masukan nomor telepon" value="{{ old('telp_pelanggan') }}">
                             </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label" for="jumlah_jual">Jumlah yang di jual *</label>
-                            <input class="form-control @error('jumlah_jual') is-invalid @enderror" id="jumlah_jual"
-                                name="jumlah_jual" type="number" placeholder="masukan jumlah jual"
-                                value="{{ old('jumlah_jual') }}" />
-                            @error('jumlah_jual')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="harga_jual">Harga*</label>
-                            <input class="form-control @error('harga_jual') is-invalid @enderror" id="harga_jual"
-                                name="harga_jual" type="number" placeholder="masukan harga"
-                                value="{{ old('harga_jual') }}" />
-                            @error('harga_jual')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
+                        <div class="form-group">
+                            <label for="asal_pelanggan">Asal</label>
+                            <input type="text" class="form-control" id="asal_pelanggan" name="asal_pelanggan"
+                                placeholder="Alamat / Sekolah" value="{{ old('asal_pelanggan') }}">
                         </div>
                     </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-secondary me-1" type="reset">
-                            <i class="fas fa-undo"></i> Reset
-                        </button>
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-save"></i> Simpan
-                        </button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detail Pesanan</h3>
+                        <div class="float-right">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="addPesanan()">
+                                Tambah
+                            </button>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">No</th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-pesanan">
+                                <tr id="pesanan-0">
+                                    <td class="text-center" id="urutan">1</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="produk-0" name="produk[]">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="harga-0" name="harga[]"
+                                                onkeyup="getTotal(0)">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="jumlah-0" name="jumlah[]"
+                                                onkeyup="getTotal(0)">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="total-0" name="total[]"
+                                                readonly>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" onclick="removePesanan(0)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
-
     <script>
-        var kategori_produk = document.getElementById('kategori_produk');
-        var layout_ikan = document.getElementById('layout_ikan');
-        var layout_pakan = document.getElementById('layout_pakan');
-        var ikan = document.getElementById('ikan_id');
-        var pakan = document.getElementById('pakan_id');
-        kategori_produk.addEventListener('change', function() {
-            if (this.value == 'ikan') {
-                layout_ikan.style.display = 'inline';
-                layout_pakan.style.display = 'none';
-                pakan.value = 1;
+        function getTotal(id) {
+            var harga = document.getElementById('harga-' + id);
+            var jumlah = document.getElementById('jumlah-' + id);
+            var total = document.getElementById('total-' + id);
+
+            if (harga.value != "" && jumlah.value != "") {
+                total.value = harga.value * jumlah.value;
             } else {
-                layout_ikan.style.display = 'none';
-                layout_pakan.style.display = 'inline';
-                ikan.value = 1;
+                total.value = "";
             }
-        })
+        }
+
+        var data_pesanan = @json(session('data_pesanans'));
+        var jumlah_pesanan = 1;
+
+        if (data_pesanan != null) {
+            jumlah_pesanan = data_pesanan.length;
+            $('#tabel-pesanan').empty();
+            var urutan = 0;
+            $.each(data_pesanan, function(key, value) {
+                urutan = urutan + 1;
+                itemPesanan(urutan, key, value);
+            });
+        }
+
+        function addPesanan() {
+            jumlah_pesanan = jumlah_pesanan + 1;
+
+            if (jumlah_pesanan == 1) {
+                $('#tabel-pesanan').empty();
+            }
+
+            itemPesanan(jumlah_pesanan, jumlah_pesanan - 1);
+        }
+
+        function removePesanan(params) {
+            jumlah_pesanan = jumlah_pesanan - 1;
+
+            console.log(jumlah_pesanan);
+
+            var tabel_pesanan = document.getElementById('tabel-pesanan');
+            var pesanan = document.getElementById('pesanan-' + params);
+
+            tabel_pesanan.removeChild(pesanan);
+
+            if (jumlah_pesanan == 0) {
+                var item_pesanan = '<tr>';
+                item_pesanan += '<td class="text-center" colspan="6">- Pesanan belum ditambahkan -</td>';
+                item_pesanan += '</tr>';
+                $('#tabel-pesanan').append(item_pesanan);
+            } else {
+                var urutan = document.querySelectorAll('#urutan');
+                for (let i = 0; i < urutan.length; i++) {
+                    urutan[i].innerText = i + 1;
+                }
+            }
+        }
+
+        function itemPesanan(urutan, key, value = null) {
+            var produk = '';
+            var harga = '';
+            var jumlah = '';
+            var total = '';
+
+            if (value !== null) {
+                produk = value.produk;
+                harga = value.harga;
+                jumlah = value.jumlah;
+                total = value.total;
+            }
+
+            var item_pesanan = '<tr id="pesanan-' + urutan + '">';
+            item_pesanan += '<td class="text-center" id="urutan">' + urutan + '</td>';
+            item_pesanan += '<td>';
+            item_pesanan += '<div class="form-group">';
+            item_pesanan += '<input type="text" class="form-control" id="produk-' + key + '" name="produk[]" value="' +
+                produk +
+                '">';
+            item_pesanan += '</div>';
+            item_pesanan += '</td>';
+            item_pesanan += '<td>';
+            item_pesanan += '<div class="form-group">';
+            item_pesanan += '<input type="number" class="form-control" id="harga-' + key + '" name="harga[]" value="' +
+                harga +
+                '" onkeyup="getTotal(' + key + ')">';
+            item_pesanan += '</div>';
+            item_pesanan += '</td>';
+            item_pesanan += '<td>';
+            item_pesanan += '<div class="form-group">';
+            item_pesanan += '<input type="number" class="form-control" id="jumlah-' + key + '" name="jumlah[]" value="' +
+                jumlah + '" onkeyup="getTotal(' + key + ')">';
+            item_pesanan += '</div>';
+            item_pesanan += '</td>'
+            item_pesanan += '<td>';
+            item_pesanan += '<div class="form-group">'
+            item_pesanan += '<input type="text" class="form-control" id="total-' + key + '" name="total[]" value="' +
+                total +
+                '" readonly>';
+            item_pesanan += '</div>';
+            item_pesanan += '</td>';
+            item_pesanan += '<td>';
+            item_pesanan += '<button type="button" class="btn btn-danger" onclick="removePesanan(' + urutan + ')">';
+            item_pesanan += '<i class="fas fa-trash"></i>';
+            item_pesanan += '</button>';
+            item_pesanan += '</td>';
+            item_pesanan += '</tr>';
+
+            $('#tabel-pesanan').append(item_pesanan);
+        }
     </script>
 
 @endsection

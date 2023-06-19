@@ -63,9 +63,38 @@ class ProductController extends Controller
         $namaGambar = 'product/' . date('mYdHs') . rand(1, 10) . '_' . $gambar;
         $request->gambar->storeAs('public/uploads/', $namaGambar);
 
-        Product::create(array_merge($request->all(), [
-            'gambar' => $namaGambar,
-        ]));
+        $product = Product::where('harga', $request->harga)->first();
+        if (!empty($product)) {
+            $id = Product::getId();
+            foreach ($id as $value);
+            $idlm = $value->id;
+            $idbr = $idlm + 1;
+            $blt = date('d F Y');
+
+            $kode_product = 'PRODUCT/' . $idbr . '/' . $blt;
+
+            Product::create(array_merge(
+                $request->all(),
+                [
+                    'kode_product' => $kode_product,
+                    'gambar' => $namaGambar,
+                ]
+            ));
+        } else {
+
+            $blt = date('d F Y');
+            Product::create(array_merge(
+                $request->all(),
+                [
+                    'kode_product' => 'PRODUCT/' . 1 . '/'. $blt,
+                    'gambar' => $namaGambar,
+                ]
+            ));
+        }
+
+        // Product::create(array_merge($request->all(), [
+        //     'gambar' => $namaGambar,
+        // ]));
 
         return redirect('admin/product')->with('status', 'Berhasil menambahkan product');
     }

@@ -42,12 +42,12 @@
                     <thead>
                         <tr>
                             <th class="text-center" scope="col">#</th>
-                            <th scope="col">Nama Pembeli</th>
+                            <th scope="col">kode Transaksi</th>
                             <th scope="col">Nama Produk</th>
                             <th scope="col">Kategori</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Jumlah</th>
-                            <th scope="col">Harga</th>
+                            {{-- <th scope="col">Tanggal</th> --}}
+                            {{-- <th scope="col">Jumlah</th>
+                            <th scope="col">Harga</th> --}}
                             <th class="text-center" scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -55,12 +55,12 @@
                         @forelse ($transaksis as $key => $transaksi)
                             <tr>
                                 <td class="text-center">{{ $transaksis->firstItem() + $key }}</td>
-                                <td>{{ $transaksi->nama_pembeli }}</td>                                    
+                                <td>{{ $transaksi->kode_transaksi }}</td>
                                 <td>{{ $transaksi->product->nama }}</td>
                                 <td>{{ $transaksi->kategori_produk }}</td>
-                                <td>{{ $transaksi->tanggal }}</td>
+                                {{-- <td>{{ $transaksi->tanggal }}</td>
                                 <td>{{ $transaksi->jumlah_jual }}</td>
-                                <td>Rp.{{ $transaksi->harga_jual }}</td>
+                                <td>Rp.{{ $transaksi->harga_jual }}</td> --}}
                                 <td class="text-center">
                                     <a href="#" class="btn btn-warning btn-sm">
                                         <i class="fas fa-pen"></i> Edit
@@ -82,7 +82,7 @@
                                                     <div class="bg-light rounded-top-lg py-3 ps-4 pe-6 text-start">
                                                         <h4 class="mb-3">Hapus</h4>
                                                         <h5 class="fs-0 fw-normal">Yakin hapus transaksi dari
-                                                            <strong>{{ $transaksi->nama_pembeli }}?</strong>
+                                                            <strong>{{ $transaksi->product->nama }}?</strong>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -115,6 +115,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </section>
 

@@ -50,7 +50,7 @@
                             <th class="text-center" scope="col">#</th>
                             <th scope="col">Nama Suplayer</th>
                             <th scope="col">alamat</th>
-                            <th class="text-center" scope="col">Opsi</th>
+                            <th class="text-start" scope="col">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,18 +58,18 @@
                             <tr>
                                 <td class="text-center">{{ $suplayers->firstItem() + $key }}</td>
                                 <td>{{ $suplayer->nama }}</td>
-                                <td>{{ $suplayer->alamat }}</td>
-                                <td class="text-center">
+                                <td class="">{{ $suplayer->alamat }}</td>
+                                <td class="text-start">
                                     {{-- <a href="#" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Detail
                                     </a> --}}
                                     <a href="{{ url('admin/suplayer/' . $suplayer->id . '/edit') }}"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i> Edit
+                                        class="btn btn-warning btn-sm mb-1">
+                                        <i class="fas fa-pen"></i>
                                     </a>
                                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#modalHapus{{ $suplayer->id }}">
-                                        <i class="fas fa-trash"></i> Hapus
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                     <div class="modal fade" id="modalHapus{{ $suplayer->id }}" data-keyboard="false"
                                         data-backdrop="static" tabindex="-1" aria-hidden="true">

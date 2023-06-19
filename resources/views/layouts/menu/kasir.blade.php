@@ -4,20 +4,20 @@
     <a href="../index3.html" class="brand-link">
         <img src="{{ asset('adminLTE/dist/img/ikan.jpg') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3 mt-0" style="opacity: .8">
-        <span class="brand-text font-italic">Mustika Fish Food</span>
+        <span class="brand-text font-italic">{{ Auth::user()->name }}</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ asset('adminLTE/dist/img/avatar3.png') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block font-weight-normal">Alexander Pierce</a>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -34,6 +34,15 @@
                 </li>
                 <li class="nav-header">Master</li>
                 <li class="nav-item">
+                    <a href="{{ url('kasir/product') }}"
+                        class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-grip-horizontal"></i>
+                        <p>
+                            Data Produk
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('kasir/transaksi') }}"
                         class="nav-link {{ request()->is('kasir/transaksi*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-external-link-square-alt"></i>
@@ -43,7 +52,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" data-toggle="modal" data-target="#modalLogout" class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
+                    <a href="#" data-toggle="modal" data-target="#modalLogout"
+                        class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>Logout</p>
                     </a>

@@ -41,9 +41,6 @@
                             value="{{ Request::get('keyword') }}" aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
-                    <a href="{{ url('admin/product/create') }}" class="btn btn-outline-primary btn-sm float-end">
-                        <i class="fas fa-plus"></i> Tambah
-                    </a>
                 </div>
                 <table class="table">
                     <thead>
@@ -70,14 +67,6 @@
                                     <a href="" class="btn btn-info btn-sm" data-toggle="modal"
                                         data-target="#myModal{{ $product->id }}">
                                         <i class="fas fa-eye"></i> Detail
-                                    </a>
-                                    <a href="{{ url('admin/product/' . $product->id . '/edit') }}"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="fas fa-pen"></i> Edit
-                                    </a>
-                                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#modalHapus{{ $product->id }}">
-                                        <i class="fas fa-trash"></i> Hapus
                                     </a>
                                     <div data-toggle="modal" data-target="#myModal">
                                         <!-- Optional JavaScript -->
@@ -156,38 +145,6 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal fade" id="modalHapus{{ $product->id }}" data-keyboard="false"
-                                        data-backdrop="static" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog mt-6" role="document">
-                                            <div class="modal-content border-0">
-                                                <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
-                                                    <button
-                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                        data-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="bg-light rounded-top-lg py-3 ps-4 pe-6 text-start">
-                                                        <h4 class="mb-3">Hapus</h4>
-                                                        <h5 class="fs-0 fw-normal">Yakin hapus produk
-                                                            <strong>{{ $product->nama }}?</strong>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        data-dismiss="modal">Batal</button>
-                                                    <button class="btn btn-primary" type="button"
-                                                        onclick="event.preventDefault(); document.getElementById('delete{{ $product->id }}').submit();">Hapus</button>
-                                                    <form action="{{ url('admin/product/' . $product->id) }}"
-                                                        method="POST" id="delete{{ $product->id }}">
-                                                        @csrf
-                                                        @method('delete')
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

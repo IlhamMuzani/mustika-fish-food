@@ -19,15 +19,16 @@ class TransaksiController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('kasir/transaksi.create', compact('products'));
+        $transaksis = Transaksi::all();
+        return view('kasir/transaksi.create', compact('products','transaksis'));
     }
 
     public function store(Request $request)
     {
+
         $validator = Validator::make(
             $request->all(),
             [
-                'nama_pembeli' => 'required',
                 'kategori_produk' => 'required',
                 'product_id' => 'required',
                 'tanggal' => 'required',
@@ -35,7 +36,6 @@ class TransaksiController extends Controller
                 'harga_jual' => 'required'
             ],
             [
-                'nama_pembeli.required' => 'Nama pembeli tidak boleh kosong !',
                 'kategori_produk.required' => 'Pilih kategori produk !',
                 'product_id.required' => 'Pilih nama produk !',
                 'tanggal.required' => 'Tanggal tidak boleh kosong !',
@@ -50,7 +50,36 @@ class TransaksiController extends Controller
         }
 
 
-        Transaksi::create($request->all());
+        $transaksi = Transaksi::where('jumlah_jual', $request->jumlah_jual)->first();
+        if (!empty($transaksi)) {
+            $id = Transaksi::getId();
+            foreach ($id as $value);
+            $idlm = $value->id;
+            $idbr = $idlm + 1;
+            $blt = date('d F Y');
+
+            $kode_transaksi = 'TRANS/' . $idbr . '/' . $blt;
+
+            Transaksi::create(array_merge(
+                $request->all(),
+                [
+                    'kode_transaksi' => $kode_transaksi,
+                ]
+            ));
+        } else {
+
+            $blt = date('d F Y');
+            Transaksi::create(array_merge(
+                $request->all(),
+                [
+                    'kode_transaksi' => 'TRANS/' . 1 . '/' . $blt,
+                ]
+            ));
+        }
+
+        $barang = Product::findOrFail($request->product_id);
+        $barang->stok -= $request->jumlah_jual;
+        $barang->save();
 
         return redirect('kasir/transaksi')->with('status', 'Berhasil menambahkan transaksi');
     }

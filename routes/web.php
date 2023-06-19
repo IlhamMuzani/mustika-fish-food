@@ -41,4 +41,5 @@ Route::middleware('owner')->prefix('owner')->group(function () {
 Route::middleware('kasir')->prefix('kasir')->group(function () {
     Route::get('/', [\App\Http\Controllers\Kasir\DashboardController::class, 'index']);
     Route::resource('transaksi', \App\Http\Controllers\Kasir\TransaksiController::class);
+    Route::resource('product', \App\Http\Controllers\Kasir\ProductController::class);
 });
