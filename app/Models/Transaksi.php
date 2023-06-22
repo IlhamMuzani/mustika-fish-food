@@ -9,24 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     use HasFactory;
-    protected $table = "transaksis",
-        $fillable = [
-        'kode_transaksi',
-        'product_id',
-        'kategori_produk',
-        'tanggal',
-        'jumlah_jual',
-        'harga_jual'
+    
+    protected $fillable = [
+        'kode',
+        'nama',
     ];
 
-    public static function getId()
+    public function detail_transaksis()
     {
-        return $getId = DB::table('transaksis')->orderBy('id', 'DESC')->take(1)->get();
-    }
-
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class, "product_id", "id");
+        return $this->hasMany(DetailTransaksi::class);
     }
 }

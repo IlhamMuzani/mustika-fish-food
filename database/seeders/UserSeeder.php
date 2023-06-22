@@ -16,24 +16,25 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'level' => 'admin',
+                'nama' => 'admin',
+                'username' => 'admin',
                 'password' => bcrypt('admin'),
+                'level' => 'admin',
             ],
             [
-                'name' => 'windi',
-                'email' => 'windi@gmail.com',
-                'level' => 'owner',
+                'nama' => 'windi',
+                'username' => 'windi',
                 'password' => bcrypt('windi'),
+                'level' => 'owner',
             ],
             [
-                'name' => 'kasir',
-                'email' => 'kasir@gmail.com',
-                'level' => 'kasir',
+                'nama' => 'kasir',
+                'username' => 'kasir',
                 'password' => bcrypt('kasir'),
+                'level' => 'kasir',
             ]
         ];
+
         User::insert($users);
     }
 }

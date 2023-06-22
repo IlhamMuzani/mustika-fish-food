@@ -15,13 +15,8 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_transaksi');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->string('kategori_produk');
-            $table->string('tanggal');
-            $table->string('jumlah_jual');
-            $table->string('harga_jual');
+            $table->string('kode')->unique();
+            $table->string('nama');
             $table->timestamps();
         });
     }
