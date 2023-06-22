@@ -104,73 +104,73 @@ class TransaksiController extends Controller
         return view('admin.transaksi.show', compact('transaksi', 'detail_transaksis'));
     }
 
-    public function edit($id)
-    {
-        $jenises = Jenis::all();
-        $kategoris = Kategori::all();
-        $suppliers = Supplier::all();
-        $produk = Produk::where('id', $id)->first();
+    // public function edit($id)
+    // {
+    //     $jenises = Jenis::all();
+    //     $kategoris = Kategori::all();
+    //     $suppliers = Supplier::all();
+    //     $produk = Produk::where('id', $id)->first();
 
-        return view('admin.transaksi.edit', compact('jenises', 'kategoris', 'suppliers', 'produk'));
-    }
+    //     return view('admin.transaksi.edit', compact('jenises', 'kategoris', 'suppliers', 'produk'));
+    // }
 
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'jenis_id' => 'required',
-            'kategori_id' => 'required',
-            'supplier_id' => 'required',
-            'stok' => 'required',
-            'harga' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-        ], [
-            'nama.required' => 'Nama produk tidak boleh kosong!',
-            'jenis_id.required' => 'Jenis harus dipilih!',
-            'kategori_id.required' => 'Kategori harus dipilih!',
-            'supplier_id.required' => 'Supplier harus dipilih!',
-            'stok.required' => 'Stok tidak boleh kosong!',
-            'harga.required' => 'Harga tidak boleh kosong!',
-            'gambar.image' => 'Gambar yang dimasukan salah!',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'nama' => 'required',
+    //         'jenis_id' => 'required',
+    //         'kategori_id' => 'required',
+    //         'supplier_id' => 'required',
+    //         'stok' => 'required',
+    //         'harga' => 'required',
+    //         'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+    //     ], [
+    //         'nama.required' => 'Nama produk tidak boleh kosong!',
+    //         'jenis_id.required' => 'Jenis harus dipilih!',
+    //         'kategori_id.required' => 'Kategori harus dipilih!',
+    //         'supplier_id.required' => 'Supplier harus dipilih!',
+    //         'stok.required' => 'Stok tidak boleh kosong!',
+    //         'harga.required' => 'Harga tidak boleh kosong!',
+    //         'gambar.image' => 'Gambar yang dimasukan salah!',
+    //     ]);
 
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            return back()->withInput()->with('error', $errors);
-        }
+    //     if ($validator->fails()) {
+    //         $errors = $validator->errors()->all();
+    //         return back()->withInput()->with('error', $errors);
+    //     }
 
-        $produk = Produk::findOrFail($id);
+    //     $produk = Produk::findOrFail($id);
 
-        if ($request->gambar) {
-            Storage::disk('local')->delete('public/uploads/' . $produk->gambar);
-            $gambar = str_replace(' ', '', $request->gambar->getClientOriginalName());
-            $namaGambar = 'produk/' . date('mYdHs') . rand(1, 10) . '_' . $gambar;
-            $request->gambar->storeAs('public/uploads/', $namaGambar);
-        } else {
-            $namaGambar = $produk->gambar;
-        }
+    //     if ($request->gambar) {
+    //         Storage::disk('local')->delete('public/uploads/' . $produk->gambar);
+    //         $gambar = str_replace(' ', '', $request->gambar->getClientOriginalName());
+    //         $namaGambar = 'produk/' . date('mYdHs') . rand(1, 10) . '_' . $gambar;
+    //         $request->gambar->storeAs('public/uploads/', $namaGambar);
+    //     } else {
+    //         $namaGambar = $produk->gambar;
+    //     }
 
-        Produk::where('id', $produk->id)
-            ->update([
-                'nama' => $request->nama,
-                'kategori_id' => $request->kategori_id,
-                'supplier_id' => $request->supplier_id,
-                'stok' => $request->stok,
-                'harga' => $request->harga,
-                'gambar' => $namaGambar,
-            ]);
+    //     Produk::where('id', $produk->id)
+    //         ->update([
+    //             'nama' => $request->nama,
+    //             'kategori_id' => $request->kategori_id,
+    //             'supplier_id' => $request->supplier_id,
+    //             'stok' => $request->stok,
+    //             'harga' => $request->harga,
+    //             'gambar' => $namaGambar,
+    //         ]);
 
-        return redirect('admin/transaksi')->with('success', 'Berhasil memperbarui Produk');
-    }
+    //     return redirect('admin/transaksi')->with('success', 'Berhasil memperbarui Produk');
+    // }
 
-    public function destroy($id)
-    {
-        $produk = Produk::find($id);
-        Storage::disk('local')->delete('public/uploads/' . $produk->gambar);
-        $produk->delete();
+    // public function destroy($id)
+    // {
+    //     $produk = Produk::find($id);
+    //     Storage::disk('local')->delete('public/uploads/' . $produk->gambar);
+    //     $produk->delete();
 
-        return redirect('admin/transaksi')->with('success', 'Berhasil menghapus P');
-    }
+    //     return redirect('admin/transaksi')->with('success', 'Berhasil menghapus P');
+    // }
 
     public function kode()
     {
