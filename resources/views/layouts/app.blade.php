@@ -136,10 +136,9 @@
     </div>
 
     <footer class="main-footer">
-      <strong>Copyright © 2021. All right reserved. <a href="https://pse.kominfo.go.id/tdpse-detail/3010">EHR System
-          Terdaftar Di Kominfo.</a>.</strong>
+      <strong>Copyright © 2023. <a href="#">Mustika Fish Food.</a></strong>
       <div class="float-right d-none d-sm-inline-block">
-        <b>No. 001922.01/DJAI.PSE/01/2022</b>
+        <b>Version 2.0</b>
       </div>
     </footer>
 
