@@ -122,7 +122,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Yakin keluar sistem <strong>EHR-Helpdesk</strong>?</p>
+            <p>Yakin keluar sistem <strong>Sistem</strong>?</p>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
