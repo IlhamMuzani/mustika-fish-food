@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Transaksi')
+@section('title', 'Produk')
 
 @section('content')
   <!-- Content Header (Page header) -->
@@ -8,11 +8,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Transaksi</h1>
+          <h1 class="m-0">Produk</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Transaksi</li>
+            <li class="breadcrumb-item active">Produk</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -34,11 +34,11 @@
       @endif
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Data Transaksi</h3>
+          <h3 class="card-title">Data Produk</h3>
           <div class="float-right">
-            <a href="{{ url('kasir/transaksi/create') }}" class="btn btn-primary btn-sm">
+            {{-- <a href="{{ url('admin/produk/create') }}" class="btn btn-primary btn-sm">
               <i class="fas fa-plus"></i> Tambah
-            </a>
+            </a> --}}
           </div>
         </div>
         <!-- /.card-header -->
@@ -47,49 +47,49 @@
             <thead>
               <tr>
                 <th class="text-center">No</th>
-                <th>Nama Pelanggan</th>
-                <th>Total Pembelian</th>
-                <th>Tanggal</th>
-                <th class="text-center" width="80">Opsi</th>
+                <th>Nama Produk</th>
+                <th>Supplier</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th class="text-center" width="120">Opsi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($transaksis as $transaksi)
+              @foreach ($produks as $produk)
                 <tr>
                   <td class="text-center">{{ $loop->iteration }}</td>
-                  <td>{{ $transaksi->nama }}</td>
-                  @php
-                    $total = [];
-                    foreach ($transaksi->detail_transaksis as $detail_transaksi) {
-                        $total[] = $detail_transaksi->total;
-                    }
-                  @endphp
-                  <td>{{ array_sum($total) }}</td>
-                  <td>{{ date('d F Y', strtotime($transaksi->created_at)) }}</td>
+                  <td>{{ $produk->nama }}</td>
+                  <td>{{ $produk->supplier->nama }}</td>
+                  <td>{{ $produk->harga }}</td>
+                  <td>{{ $produk->stok }}</td>
                   <td class="text-center">
-                    <a href="{{ url('kasir/transaksi/' . $transaksi->id) }}" class="btn btn-info">
+                    <a href="{{ url('kasir/produk/' . $produk->id) }}" class="btn btn-info">
                       <i class="fas fa-eye"></i>
                     </a>
-                    <button type="button" class="btn btn-danger">
+                    {{-- <a href="{{ url('admin/produk/' . $produk->id . '/edit') }}" class="btn btn-warning">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <button type="submit" class="btn btn-danger" data-toggle="modal"
+                      data-target="#modal-hapus-{{ $produk->id }}">
                       <i class="fas fa-trash"></i>
-                    </button>
+                    </button> --}}
                   </td>
                 </tr>
-                <div class="modal fade" id="modal-hapus-{{ $transaksi->id }}">
+                <div class="modal fade" id="modal-hapus-{{ $produk->id }}">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title">Hapus Transaksi</h4>
+                        <h4 class="modal-title">Hapus Produk</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p>Yakin hapus transaksi <strong>{{ $transaksi->nama }}</strong>?</p>
+                        <p>Yakin hapus produk <strong>{{ $produk->nama }}</strong>?</p>
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                        <form action="{{ url('kasir/transaksi/' . $transaksi->id) }}" method="POST">
+                        <form action="{{ url('admin/produk/' . $produk->id) }}" method="POST">
                           @csrf
                           @method('delete')
                           <button type="submit" class="btn btn-danger">Hapus</button>

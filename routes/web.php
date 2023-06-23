@@ -34,9 +34,9 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    
+
     Route::resource('supplier', \App\Http\Controllers\Admin\SupplierController::class);
-    
+
     Route::get('produk/kategori/{id}', [\App\Http\Controllers\Admin\ProdukController::class, 'kategori']);
     Route::resource('produk', \App\Http\Controllers\Admin\ProdukController::class);
 
@@ -44,7 +44,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resource('transaksi', \App\Http\Controllers\Admin\TransaksiController::class);
 
     Route::resource('jenis', \App\Http\Controllers\Admin\JenisController::class);
-    
+
     Route::resource('kategori', \App\Http\Controllers\Admin\KategoriController::class);
 });
 
@@ -55,6 +55,8 @@ Route::middleware('owner')->prefix('owner')->group(function () {
 
 Route::middleware('kasir')->prefix('kasir')->group(function () {
     Route::get('/', [\App\Http\Controllers\Kasir\DashboardController::class, 'index']);
+    Route::resource('produk', \App\Http\Controllers\Kasir\ProdukController::class);
+
+    Route::get('transaksi/harga/{id}', [\App\Http\Controllers\Kasir\TransaksiController::class, 'harga']);
     Route::resource('transaksi', \App\Http\Controllers\Kasir\TransaksiController::class);
-    Route::resource('product', \App\Http\Controllers\Kasir\ProductController::class);
 });
