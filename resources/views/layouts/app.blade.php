@@ -74,7 +74,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="" class="brand-link">
-                <img src="{{ asset('storage/uploads/ikan.jpg') }}" alt="Mustika-Fish-Food"
+                <img src="{{ asset('storage/uploads/produk/fish.png') }}" alt="Mustika-Fish-Food"
                     class="brand-image img-circle">
                 <span class="brand-text font-wight-bold">Mustika-Fish-Food</span>
             </a>
