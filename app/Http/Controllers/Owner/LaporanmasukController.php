@@ -33,30 +33,30 @@ class LaporanmasukController extends Controller
         return view('owner.laporan-masuk.show', compact('produk'));
     }
 
-    // public function cetakpdf()
-    // {
-    //     $cetakpdf = Produk::all();
-    //     $html = view('owner.laporan-masuk.print', compact('cetakpdf'));
-
-    //     $dompdf = new Dompdf();
-    //     $dompdf->loadHtml($html);
-    //     $dompdf->setPaper('A4', 'landscape');
-
-    //     $dompdf->render();
-
-    //     $dompdf->stream();
-    // }
-
     public function cetakpdf()
     {
         $cetakpdf = Produk::all();
+        $html = view('owner.laporan-masuk.print', compact('cetakpdf'));
 
-        // Load the view and set the paper size to portrait letter
-        $pdf = PDF::loadView('owner.laporan-masuk.print', compact('cetakpdf'));
-        $pdf->setPaper('letter', 'portrait'); // Set the paper size to portrait letter
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
 
-        return $pdf->stream('Laporan Masuk.pdf');
+        $dompdf->render();
+
+        $dompdf->stream();
     }
+
+    // public function cetakpdf()
+    // {
+    //     $cetakpdf = Produk::all();
+
+    //     // Load the view and set the paper size to portrait letter
+    //     $pdf = PDF::loadView('owner.laporan-masuk.print', compact('cetakpdf'));
+    //     $pdf->setPaper('letter', 'portrait'); // Set the paper size to portrait letter
+
+    //     return $pdf->stream('Laporan Masuk.pdf');
+    // }
 
     public function create()
     {
