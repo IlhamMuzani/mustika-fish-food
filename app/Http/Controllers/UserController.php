@@ -16,21 +16,21 @@ class UserController extends Controller
 
     public function login_action(Request $request)
     {
-        Session::flash('email', $request->email);
+        Session::flash('username', $request->username);
         $request->validate([
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ], [
-            'email.required' => 'Email tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong'
         ]);
 
         $infoLogin = [
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => $request->password
         ];
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
         if (is_null($user)) {
             return redirect('login')->with('error', array('User tidak ditemukan'));
         }
@@ -38,7 +38,7 @@ class UserController extends Controller
         if (Auth::attempt($infoLogin)) {
             return redirect('checkuser')->with('success', 'Berhasil login');
         } else {
-            return back()->with('error', array('Email dan password tidak sesuai'));
+            return back()->with('error', array('Username dan password tidak sesuai'));
         }
     }
     

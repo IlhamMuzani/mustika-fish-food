@@ -195,4 +195,12 @@ class TransaksiController extends Controller
 
         return json_decode($produk);
     }
+
+    public function destroy($id)
+    {
+        $transaksi = Transaksi::find($id);
+        $transaksi->detail_transaksis()->delete();
+        $transaksi->delete();
+        return redirect('admin/transaksi')->with('success', 'Berhasil menghapus transaksi');
+    }
 }

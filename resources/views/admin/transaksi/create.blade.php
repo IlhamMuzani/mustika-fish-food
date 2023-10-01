@@ -50,7 +50,7 @@
           <!-- /.card-header -->
           <div class="card-body">
             <div class="form-group">
-              <label for="nama">Nama Pembeli</label>
+              <label for="nama">Nama Pelanggan</label>
               <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan nama pembeli"
                 value="{{ old('nama') }}">
             </div>

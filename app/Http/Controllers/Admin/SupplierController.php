@@ -79,6 +79,7 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $supplier = Supplier::find($id);
+        $supplier->produk()->delete();
         $supplier->delete();
 
         return redirect('admin/supplier')->with('success', 'Berhasil menghapus Supplier');

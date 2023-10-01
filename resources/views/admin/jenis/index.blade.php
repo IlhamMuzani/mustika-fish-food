@@ -36,9 +36,9 @@
         <div class="card-header">
           <h3 class="card-title">Data Jenis</h3>
           <div class="float-right">
-            <a href="{{ url('admin/jenis/create') }}" class="btn btn-primary btn-sm">
+            {{-- <a href="{{ url('admin/jenis/create') }}" class="btn btn-primary btn-sm">
               <i class="fas fa-plus"></i> Tambah
-            </a>
+            </a> --}}
           </div>
         </div>
         <!-- /.card-header -->
@@ -48,7 +48,7 @@
               <tr>
                 <th class="text-center" width="20">No</th>
                 <th>Nama</th>
-                <th class="text-center" width="80">Opsi</th>
+                {{-- <th class="text-center" width="80">Opsi</th> --}}
               </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
                 <tr>
                   <td class="text-center">{{ $loop->iteration }}</td>
                   <td>{{ $jenis->nama }}</td>
-                  <td class="text-center">
+                  {{-- <td class="text-center">
                     <a href="{{ url('admin/jenis/' . $jenis->id . '/edit') }}" class="btn btn-warning">
                       <i class="fas fa-pencil-alt"></i>
                     </a>
@@ -64,7 +64,7 @@
                       data-target="#modal-hapus-{{ $jenis->id }}">
                       <i class="fas fa-trash"></i>
                     </button>
-                  </td>
+                  </td> --}}
                 </tr>
                 <div class="modal fade" id="modal-hapus-{{ $jenis->id }}">
                   <div class="modal-dialog">

@@ -12,4 +12,12 @@ class KategoriController extends Controller
         $kategoris = Kategori::all();
         return view('admin.kategori.index', compact('kategoris'));
     }
+
+    public function destroy($id)
+    {
+        $kategori = Kategori::find($id);
+        $kategori->produk()->delete();
+        $kategori->delete();
+        return redirect('admin/kategori')->with('success', 'Berhasil menghapus kategori');
+    }
 }

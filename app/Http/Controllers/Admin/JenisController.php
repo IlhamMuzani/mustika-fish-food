@@ -12,4 +12,12 @@ class JenisController extends Controller
         $jenises = Jenis::all();
         return view('admin.jenis.index', compact('jenises'));
     }
+
+    // public function destroy($id)
+    // {
+    //     $kategori = Jenis::find($id);
+    //     $kategori->kategori()->delete();
+    //     $kategori->delete();
+    //     return redirect('admin/jenis')->with('success', 'Berhasil menghapus jenis');
+    // }
 }

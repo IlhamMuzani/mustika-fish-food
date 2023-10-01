@@ -103,7 +103,7 @@ class TransaksiController extends Controller
 
         return view('kasir.transaksi.show', compact('transaksi', 'detail_transaksis'));
     }
-    
+
     public function kode()
     {
         $now = Carbon::now();
@@ -126,5 +126,20 @@ class TransaksiController extends Controller
         $produk = Produk::where('id', $id)->first();
 
         return json_decode($produk);
+    }
+
+    // public function destroy($id)
+    // {
+    //     $transaksi = Transaksi::find($id);
+    //     $transaksi->delete();
+    //     return redirect('kasir/admin')->with('success', 'Berhasil menghapus transaksi');
+    // }
+
+    public function destroy($id)
+    {
+        $transaksi = Transaksi::find($id);
+        $transaksi->detail_transaksis()->delete();
+        $transaksi->delete();
+        return redirect('kasir/transaksi')->with('success', 'Berhasil menghapus transaksi');
     }
 }

@@ -139,9 +139,10 @@ class ProdukController extends Controller
     {
         $produk = Produk::find($id);
         Storage::disk('local')->delete('public/uploads/' . $produk->gambar);
+        $produk->detail_transaksi()->delete();
         $produk->delete();
 
-        return redirect('admin/produk')->with('success', 'Berhasil menghapus P');
+        return redirect('admin/produk')->with('success', 'Berhasil menghapus Produk');
     }
 
     public function kode($kategori_id, $supplier_id)
@@ -150,6 +151,7 @@ class ProdukController extends Controller
             ['kategori_id', $kategori_id],
             ['supplier_id', $supplier_id]
         ])->get();
+        
         if (count($produks) > 0) {
             $count = count($produks) + 1;
             $num = sprintf("%03s", $count);
@@ -170,4 +172,5 @@ class ProdukController extends Controller
 
         return json_decode($kategoris);
     }
+
 }

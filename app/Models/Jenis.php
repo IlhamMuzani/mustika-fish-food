@@ -12,4 +12,11 @@ class Jenis extends Model
     protected $fillable = [
         'nama',
     ];
+    
+    public function kategori()
+    {
+        return $this->hasMany(Kategori::class);
+    }
+
+    
 }

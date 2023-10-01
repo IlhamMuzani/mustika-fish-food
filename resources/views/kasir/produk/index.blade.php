@@ -51,7 +51,7 @@
                 <th>Supplier</th>
                 <th>Harga</th>
                 <th>Stok</th>
-                <th class="text-center" width="120">Opsi</th>
+                <th class="text-center" width="70">Opsi</th>
               </tr>
             </thead>
             <tbody>

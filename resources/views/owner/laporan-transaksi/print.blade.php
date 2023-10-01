@@ -49,46 +49,40 @@
     </table>
     <hr>
     <br>
-    <p style="font-weight: bold; text-align: center">DATA LAPORAN PRODUK</p>
+    <p style="font-weight: bold; text-align: center">DATA LAPORAN TRANSAKSI</p>
     <br>
     <table style="width: 100%;" cellpadding="10" cellspacing="0">
         <tr>
             <td class="td" style="text-align: center">No.</td>
-            <td class="td" style="text-align: center">Nama</td>
-            <td class="td" style="text-align: center">Kategori</td>
-            <td class="td" style="text-align: center">Supplier</td>
+            {{-- <td class="td" style="text-align: center">Nama Pelanggan</td> --}}
+            <td class="td" style="text-align: center">Nama Produk</td>
             <td class="td" style="text-align: center">Harga</td>
-            <td class="td" style="text-align: center">Stok</td>
+            <td class="td" style="text-align: center">Jumlah</td>
+            <td class="td" style="text-align: center">Total</td>
         </tr>
-        @foreach ($cetakpdf as $item)
+        @foreach ($cetakpdf as $detail_transaksi)
             <tr>
                 <td class="td" style="width: 100px; text-align: center; vertical-align: top">{{ $loop->iteration }}.
                 </td>
                 <td class="td" style="width: 180px; vertical-align: top">
-                    {{ $item->nama }}
+                    {{ $detail_transaksi->produk->nama }}
                 </td>
                 <td class="td" style="width: 140px; vertical-align: top">
-                    Kategori produk :
+                    Harga Produk :
                     <br>
-                    {{ $item->kategori->nama }}
-                    <br>
-                </td>
-                <td class="td" style="width: 140px; vertical-align: top">
-                    Dari Supplier :
-                    <br>
-                    {{ $item->supplier->nama }}
+                    {{ $detail_transaksi->produk->harga }}
                     <br>
                 </td>
                 <td class="td" style="width: 140px; vertical-align: top">
-                    Harga beli :
+                    Jumlah :
                     <br>
-                    {{ $item->harga }}
+                    {{ $detail_transaksi->jumlah }}
                     <br>
                 </td>
                 <td class="td" style="width: 140px; vertical-align: top">
-                    Stok barang :
+                    Total :
                     <br>
-                    {{ $item->stok }}
+                    {{ $detail_transaksi->total }}
                     <br>
                 </td>
             </tr>
