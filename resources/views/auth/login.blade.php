@@ -34,6 +34,15 @@
             <a href=""><b>Mustika</b> Fish Food</a>
         </div>
         <!-- /.login-logo -->
+        @if (count($errors) > 0)
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5>
+                    <i class="icon fas fa-ban"></i> Error!
+                </h5>
+                <span>Username / Password Salah!</span>
+            </div>
+        @endif
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Masuk untuk melanjutkan</p>
