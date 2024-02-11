@@ -184,7 +184,7 @@ class TransaksiController extends Controller
         }
 
         $date = $now->format('ymd');
-        $kode = $date . $num;
+        $kode = $date . $num . rand(10, 99);
 
         return $kode;
     }
