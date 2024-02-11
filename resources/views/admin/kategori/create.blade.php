@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Supplier')
+@section('title', 'Tambah Kategori')
 
 @section('content')
   <!-- Content Header (Page header) -->
@@ -8,11 +8,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Supplier</h1>
+          <h1 class="m-0">Kategori</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('admin/supplier') }}">Supplier</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('admin/kateori') }}">Kategori</a></li>
             <li class="breadcrumb-item active">Tambah</li>
           </ol>
         </div><!-- /.col -->
@@ -36,20 +36,27 @@
       @endif
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Tambah Supplier</h3>
+          <h3 class="card-title">Tambah Kategori</h3>
         </div>
         <!-- /.card-header -->
-        <form action="{{ url('admin/supplier') }}" method="post" autocomplete="off">
+        <form action="{{ url('admin/kategori') }}" method="post" autocomplete="off">
           @csrf
           <div class="card-body">
-            <div class="form-group">
-              <label for="nama">Nama Supplier</label>
-              <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan nama supplier"
-                value="{{ old('nama') }}">
+           <div class="form-group">
+              <label for="jenis_id">Jenis</label>
+              <select class="custom-select form-control" id="jenis_id" name="jenis_id"
+                onchange="getKategori(this.value)">
+                <option value="">- Pilih Jenis -</option>
+                @foreach ($jenises as $jenis)
+                  <option value="{{ $jenis->id }}" {{ old('jenis_id') == $jenis->id ? 'selected' : '' }}>
+                    {{ $jenis->nama }}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
-              <label for="alamat">Alamat</label>
-              <textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Masukan alamat">{{ old('alamat') }}</textarea>
+              <label for="nama">Nama Kategori</label>
+              <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan nama"
+                value="{{ old('nama') }}">
             </div>
           </div>
           <div class="card-footer text-right">

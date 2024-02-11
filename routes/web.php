@@ -47,6 +47,7 @@ Route::middleware('kasir')->prefix('kasir')->group(function () {
 Route::middleware('owner')->prefix('owner')->group(function () {
     Route::get('/', [\App\Http\Controllers\Kasir\DashboardController::class, 'index']);
     Route::get('laporan-masuk', [\App\Http\Controllers\Owner\LaporanmasukController::class, 'index']);
+    Route::resource('laporan-masuk', \App\Http\Controllers\Owner\LaporanmasukController::class);
     Route::resource('laporan-transaksi', \App\Http\Controllers\Owner\LaporantransaksiController::class);
     Route::get('cetak-pdf', [\App\Http\Controllers\Owner\LaporanmasukController::class, 'cetakpdf']);
     Route::get('cetak-pdf-transaksi', [\App\Http\Controllers\Owner\LaporantransaksiController::class, 'cetakpdf']);

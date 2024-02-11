@@ -38,7 +38,7 @@ class ProdukController extends Controller
             'jenis_id' => 'required',
             'kategori_id' => 'required',
             'supplier_id' => 'required',
-            'stok' => 'required',
+            'stok' => 'required|numeric|min:80|max:200',
             'harga' => 'required',
             'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ], [
@@ -47,6 +47,9 @@ class ProdukController extends Controller
             'kategori_id.required' => 'Kategori harus dipilih!',
             'supplier_id.required' => 'Supplier harus dipilih!',
             'stok.required' => 'Stok tidak boleh kosong!',
+            'stok.numeric' => 'Stok harus berupa angka!',
+            'stok.min' => 'Stok minimal adalah 80!',
+            'stok.max' => 'Stok maksimal adalah 200!',
             'harga.required' => 'Harga tidak boleh kosong!',
             'gambar.required' => 'Gambar harus ditambahkan!',
             'gambar.image' => 'Gambar yang dimasukan salah!',
@@ -93,7 +96,7 @@ class ProdukController extends Controller
             'jenis_id' => 'required',
             'kategori_id' => 'required',
             'supplier_id' => 'required',
-            'stok' => 'required',
+            'stok' => 'required|numeric|min:80|max:200', // Menambahkan aturan untuk stok
             'harga' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ], [
@@ -102,6 +105,9 @@ class ProdukController extends Controller
             'kategori_id.required' => 'Kategori harus dipilih!',
             'supplier_id.required' => 'Supplier harus dipilih!',
             'stok.required' => 'Stok tidak boleh kosong!',
+            'stok.numeric' => 'Stok harus berupa angka!',
+            'stok.min' => 'Stok minimal adalah 80!',
+            'stok.max' => 'Stok maksimal adalah 200!',
             'harga.required' => 'Harga tidak boleh kosong!',
             'gambar.image' => 'Gambar yang dimasukan salah!',
         ]);
@@ -151,7 +157,7 @@ class ProdukController extends Controller
             ['kategori_id', $kategori_id],
             ['supplier_id', $supplier_id]
         ])->get();
-        
+
         if (count($produks) > 0) {
             $count = count($produks) + 1;
             $num = sprintf("%03s", $count);
@@ -172,5 +178,4 @@ class ProdukController extends Controller
 
         return json_decode($kategoris);
     }
-
 }
